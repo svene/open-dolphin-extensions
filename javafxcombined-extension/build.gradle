@@ -1,0 +1,7 @@
+dependencies {
+	compile project(':javafxclient-extension')
+	compile "org.open-dolphin:dolphin-combined:$dolphinVersion"
+//	compile "org.open-dolphin:dolphin-server:$dolphinVersion"
+}
+
+

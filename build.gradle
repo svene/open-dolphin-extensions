@@ -1,0 +1,79 @@
+/**
+ * Upload to bintray:
+ *   ./gradlew bintrayUpload
+ */
+
+buildscript {
+
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3"
+	}
+}
+
+subprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'maven-publish'
+	apply plugin: 'bintray'
+
+	group = 'org.open-dolphin-extension'
+	version = '0.3'
+
+	sourceCompatibility = 1.8
+
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+		testCompile 'org.junit:junit:4.11'
+	}
+
+	task javadocJar(type: Jar, dependsOn: javadoc) {
+		classifier = 'javadoc'
+		from 'build/docs/javadoc'
+	}
+
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		from sourceSets.main.allSource
+		classifier = 'sources'
+	}
+
+	artifacts {
+		archives sourcesJar
+		archives javadocJar
+	}
+
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
+				artifact sourcesJar
+				artifact javadocJar
+			}
+		}
+	}
+
+	bintray {
+		user = bintrayUser
+		key = bintrayKey
+		publications = ['mavenJava']
+		pkg {
+			userOrg = 'svene'
+			repo = 'mavenrepo'
+			name = 'open-dolphin-extension'
+			licenses = ['Apache-2.0']
+		}
+	}
+
+	task install(dependsOn: 'publishMavenJavaPublicationToMavenLocal') << {
+		logger.info "Installing $project.name"
+	}
+
+}
+
+

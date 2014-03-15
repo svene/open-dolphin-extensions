@@ -1,0 +1,4 @@
+include 'client-extension'
+include 'javafxclient-extension'
+include 'javafxcombined-extension'
+

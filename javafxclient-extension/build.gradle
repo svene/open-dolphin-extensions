@@ -1,0 +1,6 @@
+dependencies {
+	compile "org.open-dolphin:dolphin-client-javafx:$dolphinVersion"
+	compile "org.open-dolphin:dolphin-client:$dolphinVersion"
+}
+
+
