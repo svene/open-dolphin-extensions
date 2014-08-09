@@ -17,7 +17,7 @@ public class ClientSideOnlyDolphin {
 	}
 
 	public ClientPresentationModel presentationModel(String pmId, String...attributeNames) {
-		List<ClientAttribute> clientAttributes = Arrays.asList(attributeNames).stream().map(n -> new ClientAttribute(n)).collect(Collectors.toList());
+		List<ClientAttribute> clientAttributes = Arrays.asList(attributeNames).stream().map(ClientAttribute::new).collect(Collectors.toList());
 		return presentationModel(pmId, clientAttributes);
 	}
 
